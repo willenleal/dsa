@@ -1,33 +1,39 @@
 class Node[T]:
     def __init__(self, val: T) -> None:
         self.val = val
-        self.next: None | Node[T] = None
+        self.next: Node[T] | None = None
 
 
-class Stack[T]:
+class Queue[T]:
     def __init__(self) -> None:
         self.count = 0
         self.head: Node[T] | None = None
+        self.tail: Node[T] | None = None
 
-    def push(self, val: T) -> None:
+    def enqueue(self, val: T) -> None:
         self.count += 1
+
         node = Node(val)
 
-        if not self.head:
-            self.head = node
+        if not self.head or not self.tail:
+            self.head = self.tail = node
             return
 
-        node.next = self.head
-        self.head = node
+        self.tail.next = node
+        self.tail = node
 
-    def pop(self) -> T | None:
+    def deque(self) -> T | None:
         if not self.head:
             return
 
         self.count -= 1
 
         head = self.head
+
         self.head = self.head.next
+
+        if not self.head:
+            self.tail = None
 
         return head.val
 
@@ -39,7 +45,11 @@ class Stack[T]:
         cur = self.head
 
         while cur:
-            res += f"{cur.val}\n"
+            if cur.next:
+                res += f"{cur.val} -> "
+            else:
+                res += f"{cur.val}"
+
             cur = cur.next
 
         return res
