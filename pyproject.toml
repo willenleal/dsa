@@ -12,6 +12,10 @@ python = "^3.12"
 pytest = "^8.2.2"
 mypy = "^1.10.1"
 
+[tool.mypy]
+python_version = 3.12
+enable_incomplete_feature = ["NewGenericSyntax"]
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
