@@ -1,5 +1,5 @@
 import pytest
-from dsa.algorithms.searching import binary_search
+from dsa import binary_search
 
 
 @pytest.fixture

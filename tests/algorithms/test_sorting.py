@@ -1,7 +1,7 @@
 # tests/test_sorting.py
 
 import pytest
-from dsa.algorithms.sorting import bubble_sort, quick_sort
+from dsa import bubble_sort, quick_sort
 
 
 @pytest.fixture
