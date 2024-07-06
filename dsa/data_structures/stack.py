@@ -34,6 +34,9 @@ class Stack[T]:
     def peek(self) -> T | None:
         return self.head.val if self.head else None
 
+    def __len__(self):
+        return self.count
+
     def __repr__(self) -> str:
         res = ""
         cur = self.head

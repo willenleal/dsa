@@ -173,6 +173,9 @@ class LinkedList[T]:
 
         self.head = prev
 
+    def __len__(self):
+        return self.count
+
     def __repr__(self) -> str:
         res = ""
         cur = self.head
