@@ -138,6 +138,7 @@ class BT[T: (int, float)]:
 class BST[T: (int, float)](BT[T]):
     @override
     def insert(self, val: T) -> None:
+        self.size += 1
         if not self.root:
             self.root = Node(val)
             return
@@ -170,26 +171,28 @@ class BST[T: (int, float)](BT[T]):
 
         if val < node.val:
             return self._dfs(node.left, val)
-
-        return self._dfs(node.right, val)
+        else:
+            return self._dfs(node.right, val)
 
     def deleteNode(self, val: T) -> bool:
-        node = self._deleteNode(self.root, val)
-        return True if node else False
+        _, res = self._deleteNode(self.root, val)
+        if res:
+            self.size -= 1
+        return res
 
-    def _deleteNode(self, node: Node[T] | None, val: T) -> Node[T] | None:
+    def _deleteNode(self, node: Node[T] | None, val: T) -> tuple[Node[T] | None, bool]:
         if not node:
-            return node
+            return node, False
 
         elif val < node.val:
-            node.left = self._deleteNode(node.left, val)
+            node.left, res = self._deleteNode(node.left, val)
         elif val > node.val:
-            node.right = self._deleteNode(node.right, val)
+            node.right, res = self._deleteNode(node.right, val)
         else:
             if not node.left:
-                return node.right
+                return node.right, True
             if not node.right:
-                return node.left
+                return node.left, True
 
             cur = node.left
 
@@ -197,6 +200,7 @@ class BST[T: (int, float)](BT[T]):
                 cur = cur.right
 
             node.val = cur.val
-            node.left = self._deleteNode(node.left, node.val)
+            node.left, _ = self._deleteNode(node.left, node.val)
+            return node, True
 
-        return node
+        return node, res
