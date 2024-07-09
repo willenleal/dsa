@@ -1,5 +1,5 @@
 from .algorithms import binary_search, bubble_sort, quick_sort
-from .data_structures import Stack, Queue, LinkedList, BT
+from .data_structures import Stack, Queue, LinkedList, BT, BST, MinHeap
 
 __all__ = [
     "binary_search",
@@ -9,4 +9,6 @@ __all__ = [
     "Queue",
     "LinkedList",
     "BT",
+    "BST",
+    "MinHeap",
 ]
