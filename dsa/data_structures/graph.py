@@ -3,9 +3,6 @@ from dsa.data_structures import Queue
 
 class GraphMatrix:
     def __init__(self, graph: list[list[int]]) -> None:
-        # Each row represents a vertex
-        # Each column represents a possible connection
-        # The values in the matrix represent edge weights
         self.graph = graph
 
     def bfs(self, source: int, target: int) -> None | list[int]:
@@ -41,3 +38,37 @@ class GraphMatrix:
                 q.enqueue(i)
 
         return None
+
+
+class GraphList:
+    def __init__(self, graph: list[list[dict[str, int]]]) -> None:
+        self.graph = graph
+
+    def dfs(self, source: int, target: int) -> list[int] | None:
+        seen = [False] * len(self.graph)
+        path: list[int] = []
+
+        self._dfs(source, target, seen, path)
+
+        if len(path) == 0:
+            return None
+
+        return path
+
+    def _dfs(self, cur: int, target: int, seen: list[bool], path: list[int]) -> bool:
+        if seen[cur]:
+            return False
+
+        seen[cur] = True
+
+        path.append(cur)
+        if cur == target:
+            return True
+
+        for edge in self.graph[cur]:
+            if "to" in edge and self._dfs(edge["to"], target, seen, path):
+                return True
+
+        path.pop()
+
+        return False
